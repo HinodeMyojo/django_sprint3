@@ -19,7 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls', namespace='blog')),
-    path('pages/', include('pages.urls', namespace='pages'))
+    path('pages/', include('pages.urls', namespace='pages')),
+    path("__debug__/", include("debug_toolbar.urls"))
 ]
 
 handler404 = 'blogicum.views.page_not_found_view'
