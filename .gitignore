@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+blogicum/static/css
+
 # Distribution / packaging
 .Python
 build/
@@ -149,4 +151,4 @@ dmypy.json
 
 # папки со статикой и медиа
 media/
-static/
+
