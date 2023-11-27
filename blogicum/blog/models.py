@@ -1,17 +1,9 @@
-
 from django.db import models
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-
-class Location(models.Model):
-    """Represents a location."""
-
-    name = models.CharField(
-        verbose_name='Название места',
-        max_length=256
-    )
+class FilterModel(models.Model):
     is_published = models.BooleanField(
         verbose_name='Опубликовано',
         default=True,
@@ -20,6 +12,17 @@ class Location(models.Model):
     created_at = models.DateTimeField(
         verbose_name='Добавлено',
         auto_now_add=True
+    )
+
+    class Meta:
+        abstract = True
+
+class Location(FilterModel):
+    """Represents a location."""
+
+    name = models.CharField(
+        verbose_name='Название места',
+        max_length=256
     )
 
     class Meta:
@@ -32,7 +35,7 @@ class Location(models.Model):
         return self.name
 
 
-class Category(models.Model):
+class Category(FilterModel):
     """Represents a category."""
 
     title = models.CharField(
@@ -48,15 +51,6 @@ class Category(models.Model):
                    'латиницы, цифры, дефис и подчёркивание.'),
         unique=True
     )
-    is_published = models.BooleanField(
-        verbose_name='Опубликовано',
-        default=True,
-        help_text='Снимите галочку, чтобы скрыть публикацию.'
-    )
-    created_at = models.DateTimeField(
-        verbose_name='Добавлено',
-        auto_now_add=True
-    )
 
     class Meta:
         """Returns a string representation of the model."""
@@ -68,7 +62,7 @@ class Category(models.Model):
         return self.title
 
 
-class Post(models.Model):
+class Post(FilterModel):
     """Represents a post."""
 
     title = models.CharField(max_length=256, verbose_name='Заголовок')
@@ -97,16 +91,6 @@ class Post(models.Model):
         null=True
 
     )
-    is_published = models.BooleanField(
-        verbose_name='Опубликовано',
-        default=True,
-        help_text='Снимите галочку, чтобы скрыть публикацию.'
-    )
-    created_at = models.DateTimeField(
-        verbose_name='Добавлено',
-        auto_now_add=True
-    )
-
     class Meta:
         """Returns a string representation of the model."""
 

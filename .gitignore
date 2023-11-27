@@ -6,7 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-blogicum/static/css
 
 # Distribution / packaging
 .Python
