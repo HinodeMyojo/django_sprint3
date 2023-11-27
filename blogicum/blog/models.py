@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -96,6 +97,13 @@ class Post(FilterModel):
 
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
+
+    @classmethod
+    def get_filtered(cls):
+        return cls.objects.filter(
+            is_published=True,
+            pub_date__lte=timezone.now(),
+            category__is_published=True)   
 
     def __str__(self):
         return self.title

@@ -6,26 +6,13 @@ from django.utils import timezone
 
 MAX_POST_COUNT = 5
 
-class Filter(Post):
-    @classmethod
-    def get_filtered_query(cls):
-        res = cls.objects.filter(
-            is_published=True,
-            pub_date__lte=timezone.now(),
-            category__is_published=True
-        )
-        return res
-        
-    
-
 def index(request: HttpRequest) -> HttpResponse:
     """View function for rendering the index page of the blog."""
     # Set the template for the page
     template = 'blog/index.html'
 
     # Get the latest 5 published posts with their related categories
-    post_list = Filter.get_filtered_query()
-    post_list = post_list.select_related('category').order_by('-pub_date')[:MAX_POST_COUNT]
+    post_list = Post.get_filtered().select_related('category').order_by('-pub_date')[:MAX_POST_COUNT]
 
     # Create a dictionary to pass the post list to the template
     context = {'post_list': post_list}
@@ -50,7 +37,7 @@ def post_detail(request: HttpRequest, id: int) -> HttpResponse:
 
     # Retrieve the post from the database using the id
     post = get_object_or_404(
-        Filter.get_filtered_query(),
+        Post.get_filtered(),
         id=id
     )
 
