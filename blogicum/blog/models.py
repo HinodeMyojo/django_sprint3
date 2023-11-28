@@ -4,6 +4,7 @@ from django.utils import timezone
 
 User = get_user_model()
 
+
 class FilterModel(models.Model):
     is_published = models.BooleanField(
         verbose_name='Опубликовано',
@@ -17,6 +18,7 @@ class FilterModel(models.Model):
 
     class Meta:
         abstract = True
+
 
 class Location(FilterModel):
     """Represents a location."""
@@ -95,6 +97,7 @@ class Post(FilterModel):
         related_name='category'
 
     )
+
     class Meta:
         """Returns a string representation of the model."""
 
@@ -106,7 +109,7 @@ class Post(FilterModel):
         return cls.objects.filter(
             is_published=True,
             pub_date__lte=timezone.now(),
-            category__is_published=True)   
+            category__is_published=True)
 
     def __str__(self):
         return self.title
