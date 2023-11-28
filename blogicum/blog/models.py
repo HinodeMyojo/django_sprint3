@@ -78,18 +78,21 @@ class Post(FilterModel):
         User,
         verbose_name='Автор публикации',
         on_delete=models.CASCADE,
+        related_name='autor'
     )
     location = models.ForeignKey(
         Location,
         verbose_name='Местоположение',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name='location'
     )
     category = models.ForeignKey(
         Category,
         verbose_name='Категория',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name='category'
 
     )
     class Meta:
