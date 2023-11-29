@@ -12,9 +12,11 @@ def index(request: HttpRequest) -> HttpResponse:
     template = 'blog/index.html'
 
     # Get the latest 5 published posts with their related categories
-    post_list = Post.get_filtered(
-    ).select_related('category'
-                     ).order_by('-pub_date')[:MAX_POST_COUNT]
+    post_list = Post.get_filtered().select_related(
+        'category'
+    ).order_by(
+        '-pub_date'
+    )[:MAX_POST_COUNT]
 
     # Render the template with the context data and return the response
     return render(request, template, context={'post_list': post_list})
@@ -54,9 +56,11 @@ def category_posts(request: HttpRequest, category_slug: str) -> HttpResponse:
         Category.objects,
         slug=category_slug,
         is_published=True)
-    post_list = Post.get_filtered(
-    ).filter(category=category
-             ).order_by('-created_at')
+    post_list = Post.get_filtered().filter(
+        category=category
+    ).order_by(
+        '-created_at'
+    )
 
     # Render the category page with the given context data
     return render(request, template, context={

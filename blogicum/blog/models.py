@@ -5,7 +5,7 @@ from django.utils import timezone
 User = get_user_model()
 
 
-class FilterModel(models.Model):
+class PublishedModel(models.Model):
     is_published = models.BooleanField(
         verbose_name='Опубликовано',
         default=True,
@@ -20,7 +20,7 @@ class FilterModel(models.Model):
         abstract = True
 
 
-class Location(FilterModel):
+class Location(PublishedModel):
     """Represents a location."""
 
     name = models.CharField(
@@ -38,7 +38,7 @@ class Location(FilterModel):
         return self.name
 
 
-class Category(FilterModel):
+class Category(PublishedModel):
     """Represents a category."""
 
     title = models.CharField(
@@ -65,7 +65,7 @@ class Category(FilterModel):
         return self.title
 
 
-class Post(FilterModel):
+class Post(PublishedModel):
     """Represents a post."""
 
     title = models.CharField(max_length=256, verbose_name='Заголовок')
